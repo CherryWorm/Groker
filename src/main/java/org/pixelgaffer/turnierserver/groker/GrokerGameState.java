@@ -6,10 +6,6 @@ import org.pixelgaffer.turnierserver.gamelogic.interfaces.GameState;
 public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> {
     
     public int[] wallet, wonChips;
-    
-    /**
-     * Wird nur auf dem Server verwendet, ist in der AI immer leer
-     */
     public int[] chips;
     public String[] output;
     
@@ -28,6 +24,8 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 	update.enemyWallet = wallet[otherIndex];
 	update.ownWonChips = wonChips[ai.getIndex()];
 	update.enemyWonChips = wonChips[otherIndex];
+	update.ownChips = chips[ai.getIndex()];
+	update.enemyChips = chips[otherIndex];
 	return update;
     }
 
@@ -68,6 +66,8 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 	wallet[1] = changes.enemyWallet;
 	wonChips[0] = changes.ownWonChips;
 	wonChips[1] = changes.enemyWonChips;
+	chips[0] = changes.ownChips;
+	chips[1] = changes.enemyChips;
     }
 
 }

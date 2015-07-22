@@ -1,0 +1,42 @@
+NAME = Prisoners Dilemma
+VERSION = 1.0
+
+GAMEID = 2
+
+JAVAVERSION = 1.8
+ENCODING = utf8
+
+DEBUG = true
+
+logic {
+	LIBS += ../lib/java/gamelogic.jar
+	LIBS += ../lib/java/gson.jar
+	LIBS += ../lib/java/utils.jar
+		
+	SOURCES = src/main/java
+	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
+	FILES += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
+	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
+	FILES += org/pixelgaffer/turnierserver/groker/logic/GrokerAiObject.java
+	FILES += org/pixelgaffer/turnierserver/groker/logic/PrisonersDilemmaLogic.java
+	LOGICCLASS = org.pixelgaffer.turnierserver.groker.logic.GrokerLogic
+}
+
+java {
+	LIBS += ../lib/java/ailibrary.jar
+	LIBS += ../lib/java/gamelogic.jar
+	LIBS += ../lib/java/gson.jar
+	LIBS += ../lib/java/utils.jar
+
+	SOURCES = src/main/java
+	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
+	FILES += org/pixelgaffer/turnierserver/groker/GrokerNextRound.java
+	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
+	FILES += org/pixelgaffer/turnierserver/groker/ai/GrokerAi.java
+	FILES += org/pixelgaffer/turnierserver/groker/ai/AiDaten.java
+}
+
+python {
+	SOURCES = src/main/python
+	FILES = game_wrapper.py
+}

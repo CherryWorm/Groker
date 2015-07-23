@@ -9,9 +9,9 @@ ENCODING = utf8
 DEBUG = true
 
 logic {
-	LIBS += ../lib/java/gamelogic.jar
-	LIBS += ../lib/java/gson.jar
-	LIBS += ../lib/java/utils.jar
+	LIBS += lib/java/gamelogic.jar
+	LIBS += lib/java/gson.jar
+	LIBS += lib/java/utils.jar
 		
 	SOURCES = src/main/java
 	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
@@ -23,10 +23,10 @@ logic {
 }
 
 java {
-	LIBS += ../lib/java/ailibrary.jar
-	LIBS += ../lib/java/gamelogic.jar
-	LIBS += ../lib/java/gson.jar
-	LIBS += ../lib/java/utils.jar
+	LIBS += lib/java/ailibrary.jar
+	LIBS += lib/java/gamelogic.jar
+	LIBS += lib/java/gson.jar
+	LIBS += lib/java/utils.jar
 
 	SOURCES = src/main/java
 	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java

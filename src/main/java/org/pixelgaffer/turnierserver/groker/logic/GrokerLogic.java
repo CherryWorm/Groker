@@ -36,7 +36,7 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 	@Override
 	protected void setup() {
 		for (Ai ai : game.getAis()) {
-			getUserObject(ai).millisLeft = 1000;
+			getUserObject(ai).millisLeft = 20000;
 		}
 	}
 	

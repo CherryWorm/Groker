@@ -47,6 +47,7 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 			wallet[ai.getIndex()] -= response.chips;
 		}
 		chips[ai.getIndex()] = response.chips;
+		output[ai.getIndex()] = response.output;
 	}
 	
 	/**

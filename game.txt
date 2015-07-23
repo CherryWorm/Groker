@@ -18,7 +18,7 @@ logic {
 	FILES += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
 	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
 	FILES += org/pixelgaffer/turnierserver/groker/logic/GrokerAiObject.java
-	FILES += org/pixelgaffer/turnierserver/groker/logic/PrisonersDilemmaLogic.java
+	FILES += org/pixelgaffer/turnierserver/groker/logic/GrokerLogic.java
 	LOGICCLASS = org.pixelgaffer.turnierserver.groker.logic.GrokerLogic
 }
 
@@ -30,7 +30,7 @@ java {
 
 	SOURCES = src/main/java
 	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
-	FILES += org/pixelgaffer/turnierserver/groker/GrokerNextRound.java
+	FILES += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
 	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
 	FILES += org/pixelgaffer/turnierserver/groker/ai/GrokerAi.java
 	FILES += org/pixelgaffer/turnierserver/groker/ai/AiDaten.java

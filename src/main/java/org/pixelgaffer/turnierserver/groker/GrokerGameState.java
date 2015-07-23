@@ -38,7 +38,7 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 
     @Override
     public void applyChanges(GrokerResponse response, Ai ai) {
-	if(response.chips < 1 || (response.chips > wallet[ai.getIndex()] && wallet[ai.getIndex()] != -1)) {
+	if((response.chips < 1 || response.chips > wallet[ai.getIndex()]) && wallet[ai.getIndex()] != -1) {
 	    ai.getObject().loose();
 	    return;
 	}

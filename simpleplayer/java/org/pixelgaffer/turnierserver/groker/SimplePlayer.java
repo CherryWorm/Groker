@@ -1,5 +1,7 @@
 package org.pixelgaffer.turnierserver.groker;
 
+import org.pixelgaffer.turnierserver.groker.ai.*;
+
 public class SimplePlayer extends GrokerAi {
 	
 	public SimplePlayer(String[] args) {

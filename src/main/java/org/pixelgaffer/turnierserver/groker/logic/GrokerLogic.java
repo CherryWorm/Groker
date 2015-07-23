@@ -37,6 +37,13 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
     }
 
     @Override
+    public void lost(Ai ai) {
+	super.lost(ai);
+	((GrokerGameState) gamestate).wonChips[ai.getIndex()] = -1;
+	endGame();
+    }
+
+    @Override
     protected GrokerAiObject createUserObject(Ai ai) {
 	return new GrokerAiObject();
     }

@@ -5,12 +5,16 @@ import org.pixelgaffer.turnierserver.gamelogic.interfaces.GameState;
 
 public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> {
     
+    public static final int WALLET_SIZE = -1;
+    
     public int[] wallet, wonChips;
     public int[] chips;
     public String[] output;
     
     public GrokerGameState() {
 	wallet = new int[2];
+	wallet[0] = WALLET_SIZE;
+	wallet[1] = WALLET_SIZE;
 	wonChips = new int[2];
 	chips = new int[2];
 	output = new String[2];

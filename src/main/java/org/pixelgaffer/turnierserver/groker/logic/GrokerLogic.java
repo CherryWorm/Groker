@@ -19,7 +19,7 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 	protected Object update() {
 		GrokerGameState state = (GrokerGameState) gamestate;
 		state.calculatePoints();
-		progress = Math.abs(state.wonChips[0] - state.wonChips[1]) / 100.0;
+		progress = Math.min(Math.abs(state.wonChips[0] - state.wonChips[1]) / 100.0, 1);
 		display = "Momentane Differenz zwischen den beiden Ais: " + (state.wonChips[0] - state.wonChips[1]);
 		sendRenderData(new GrokerRenderData(state, game.getAis().get(0).getId(), game.getAis().get(1).getId()));
 		for (Ai ai : game.getAis()) {

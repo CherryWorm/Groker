@@ -14,7 +14,7 @@ class AI:
 		          enemyWonChips (gesammten Chips, die der gegner bekommen hat),
 		          ownChips      (Chips, die man diese Runde gesetzt hat),
 		          enemyChips    (Chips, die der Gegner diese Runde gesetzt hat) übergeben."""
-		pprint({
+		pprint.pprint({
 			"ownWonChips": ownWonChips,
 			"enemyWonChips": enemyWonChips,
 			"ownChips": ownChips,

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.pixelgaffer.turnierserver.groker.GrokerGameState;
 
 public class GrokerRenderData {
-	
+
 	public GrokerRenderData(GrokerGameState state, String name1, String name2) {
 		chips = new HashMap<>();
 		chips.put(name1, state.chips[0]);
@@ -19,11 +19,13 @@ public class GrokerRenderData {
 		output = new HashMap<>();
 		output.put(name1, state.output[0]);
 		output.put(name2, state.output[1]);
+		System.out.println(state.output[0]);
+		System.out.println(state.output[1]);
 	}
-	
+
 	public HashMap<String, Integer> chips;
 	public HashMap<String, Integer> wallet;
 	public HashMap<String, Integer> wonChips;
 	public HashMap<String, String> output;
-	
+
 }

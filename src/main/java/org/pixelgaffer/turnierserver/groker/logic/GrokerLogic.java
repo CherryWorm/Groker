@@ -9,12 +9,12 @@ import org.pixelgaffer.turnierserver.groker.GrokerResponse;
 import com.google.gson.reflect.TypeToken;
 
 public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerResponse> {
-	
+
 	public GrokerLogic() {
 		super(new TypeToken<GrokerResponse>() {
 		});
 	}
-	
+
 	@Override
 	protected Object update() {
 		GrokerGameState state = (GrokerGameState) gamestate;
@@ -32,35 +32,35 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected GameState<?, GrokerResponse> createGameState() {
 		return new GrokerGameState();
 	}
-	
+
 	@Override
 	protected void setup() {
 		for (Ai ai : game.getAis()) {
-			getUserObject(ai).millisLeft = 2000;
+			getUserObject(ai).mikrosLeft = 2000000;
 		}
 		maxTurns = 200;
 	}
-	
+
 	@Override
 	public void lost(Ai ai) {
 		((GrokerGameState) gamestate).wonChips[ai.getIndex()] = -1;
 		getUserObject(ai).score = -1;
 		endGame("Die KI " + ai.getId() + " hat verloren");
 	}
-	
+
 	@Override
 	protected GrokerAiObject createUserObject(Ai ai) {
 		return new GrokerAiObject();
 	}
-	
+
 	@Override
 	protected void gameFinished() {
-		
+
 	}
-	
+
 }

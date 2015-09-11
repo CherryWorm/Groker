@@ -21,6 +21,22 @@ public class GrokerRenderData {
 		output.put(name2, state.output[1]);
 	}
 
+	public GrokerRenderData(String name1, String name2) {
+		chips = new HashMap<>();
+		chips.put(name1, 0);
+		chips.put(name2, 0);
+		wallet = new HashMap<>();
+		wallet.put(name1, -1);
+		wallet.put(name2, -1);
+		wonChips = new HashMap<>();
+		wonChips.put(name1, 0);
+		wonChips.put(name2, 0);
+		output = new HashMap<>();
+		output.put(name1, "Das Spiel startet nun");
+		output.put(name2, "Das Spiel startet nun");
+	}
+
+	
 	public HashMap<String, Integer> chips;
 	public HashMap<String, Integer> wallet;
 	public HashMap<String, Integer> wonChips;

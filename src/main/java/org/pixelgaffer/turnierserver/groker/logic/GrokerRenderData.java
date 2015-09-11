@@ -19,8 +19,6 @@ public class GrokerRenderData {
 		output = new HashMap<>();
 		output.put(name1, state.output[0]);
 		output.put(name2, state.output[1]);
-		System.out.println(state.output[0]);
-		System.out.println(state.output[1]);
 	}
 
 	public HashMap<String, Integer> chips;

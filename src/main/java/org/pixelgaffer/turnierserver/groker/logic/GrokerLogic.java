@@ -67,7 +67,7 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 	protected void sendFirstRenderData() {
 		progress = 0;
 		display = "Spiel gestartet";
-		sendRenderData(new GrokerRenderData(((GrokerGameState) gamestate), game.getAis().get(0).getId(), game.getAis().get(1).getId()));
+		sendRenderData(new GrokerRenderData(game.getAis().get(0).getId(), game.getAis().get(1).getId()));
 	}
 
 }

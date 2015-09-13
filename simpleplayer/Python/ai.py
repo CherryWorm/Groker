@@ -22,7 +22,7 @@ import pprint
 class AI:
 	def einsatz(self):
 		"""Diese Funkion wird jede Runde aufgerufen, und gibt die Punkte zurück, die gesetzt werden sollen."""
-		einsatz = random.randrange(1, 6)
+		einsatz = 5
 		print("setze:", einsatz)
 		return einsatz
 

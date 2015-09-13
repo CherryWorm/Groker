@@ -90,7 +90,7 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 
 	@Override
 	public float aiTimeout() {
-		return 4;
+		return 5;
 	}
 
 }

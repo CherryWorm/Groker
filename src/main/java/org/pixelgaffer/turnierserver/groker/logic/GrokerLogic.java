@@ -70,4 +70,9 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 		sendRenderData(new GrokerRenderData(game.getAis().get(0).getId(), game.getAis().get(1).getId()));
 	}
 
+	@Override
+	public int aiTimeout() {
+		return 4000;
+	}
+
 }

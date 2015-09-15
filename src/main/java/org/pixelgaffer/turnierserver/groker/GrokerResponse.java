@@ -22,4 +22,11 @@ public class GrokerResponse {
 	
 	public int chips;
 	public String output;
+
+	public GrokerResponse(String s) {
+		String[] split = s.split(":");
+		chips = Integer.getInteger(split[0]);
+		output = split[1].replace("\\n", "\n").replace("\\\\n", "\\n");
+	}
+	
 }

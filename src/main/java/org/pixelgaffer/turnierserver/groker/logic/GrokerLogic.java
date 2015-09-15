@@ -18,20 +18,15 @@
  */
 package org.pixelgaffer.turnierserver.groker.logic;
 
+import java.text.ParseException;
+
 import org.pixelgaffer.turnierserver.gamelogic.TurnBasedGameLogic;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.Ai;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.GameState;
 import org.pixelgaffer.turnierserver.groker.GrokerGameState;
 import org.pixelgaffer.turnierserver.groker.GrokerResponse;
 
-import com.google.gson.reflect.TypeToken;
-
 public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerResponse> {
-
-	public GrokerLogic() {
-		super(new TypeToken<GrokerResponse>() {
-		});
-	}
 
 	@Override
 	protected Object update() {
@@ -91,6 +86,15 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 	@Override
 	public float aiTimeout() {
 		return 5;
+	}
+
+	@Override
+	protected GrokerResponse parse(String string) throws ParseException {
+		try {
+			return new GrokerResponse(string);
+		} catch(Exception e) {
+			throw new ParseException(string, -1);
+		}
 	}
 
 }

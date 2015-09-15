@@ -22,17 +22,12 @@ import org.pixelgaffer.turnierserver.gamelogic.interfaces.Ai;
 import org.pixelgaffer.turnierserver.gamelogic.interfaces.GameState;
 
 public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> {
-	
-	public static final int WALLET_SIZE = -1;
-	
-	public int[] wallet, wonChips;
+		
+	public int[] wonChips;
 	public int[] chips;
 	public String[] output;
 	
 	public GrokerGameState() {
-		wallet = new int[2];
-		wallet[0] = WALLET_SIZE;
-		wallet[1] = WALLET_SIZE;
 		wonChips = new int[2];
 		chips = new int[2];
 		output = new String[2];
@@ -42,8 +37,6 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 	public GrokerUpdate getChanges(Ai ai) {
 		int otherIndex = ai.getIndex() == 0 ? 1 : 0;
 		GrokerUpdate update = new GrokerUpdate();
-		update.ownWallet = wallet[ai.getIndex()];
-		update.enemyWallet = wallet[otherIndex];
 		update.ownWonChips = wonChips[ai.getIndex()];
 		update.enemyWonChips = wonChips[otherIndex];
 		update.ownChips = chips[ai.getIndex()];
@@ -57,12 +50,9 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 	
 	@Override
 	public void applyChanges(GrokerResponse response, Ai ai) {
-		if ((response.chips < 1 || response.chips > wallet[ai.getIndex()]) && wallet[ai.getIndex()] != -1) {
-			ai.getObject().loose("Die KI hat mehr gesetzt als sie durfte");
+		if (response.chips < 1) {
+			ai.getObject().loose("Die KI hat weniger als 1 Chip gesetzt");
 			return;
-		}
-		if (wallet[ai.getIndex()] != -1) {
-			wallet[ai.getIndex()] -= response.chips;
 		}
 		chips[ai.getIndex()] = response.chips;
 		output[ai.getIndex()] = response.output;
@@ -86,8 +76,6 @@ public class GrokerGameState implements GameState<GrokerUpdate, GrokerResponse> 
 	
 	@Override
 	public void applyChanges(GrokerUpdate changes) {
-		wallet[0] = changes.ownWallet;
-		wallet[1] = changes.enemyWallet;
 		wonChips[0] = changes.ownWonChips;
 		wonChips[1] = changes.enemyWonChips;
 		chips[0] = changes.ownChips;

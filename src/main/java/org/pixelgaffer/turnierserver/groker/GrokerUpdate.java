@@ -20,6 +20,12 @@ package org.pixelgaffer.turnierserver.groker;
 
 public class GrokerUpdate {
 	
-	public int ownWallet, ownWonChips, ownChips;
-	public int enemyWallet, enemyWonChips, enemyChips;
+	public int ownWonChips, ownChips;
+	public int enemyWonChips, enemyChips;
+	
+	@Override
+	public String toString() {
+		return ownChips + ":" + ownWonChips + ";" + enemyChips + ":" + enemyWonChips;
+	}
+	
 }

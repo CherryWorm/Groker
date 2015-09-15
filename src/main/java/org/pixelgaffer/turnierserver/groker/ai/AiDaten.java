@@ -18,15 +18,20 @@
  */
 package org.pixelgaffer.turnierserver.groker.ai;
 
-import org.pixelgaffer.turnierserver.groker.GrokerGameState;
-
 public class AiDaten {
 	
-	AiDaten(GrokerGameState state, int index) {
-		vorrat = state.wallet[index];
-		letzterEinsatz = state.chips[index];
-		gewonneneChips = state.wonChips[index];
+	AiDaten(int letzterEinsatz, int gewonneneChips) {
+		this.letzterEinsatz = letzterEinsatz;
+		this.gewonneneChips = gewonneneChips;
 	}
 	
-	public int vorrat, letzterEinsatz, gewonneneChips;
+	AiDaten(String s) {
+		this(s.split(":"));
+	}
+	
+	AiDaten(String[] s) {
+		this(Integer.getInteger(s[0]), Integer.getInteger(s[1]));
+	}
+	
+	public int letzterEinsatz, gewonneneChips;
 }

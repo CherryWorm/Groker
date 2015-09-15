@@ -19,36 +19,23 @@
 package org.pixelgaffer.turnierserver.groker.ai;
 
 import org.pixelgaffer.turnierserver.ailibrary.Ai;
-import org.pixelgaffer.turnierserver.groker.GrokerGameState;
-import org.pixelgaffer.turnierserver.groker.GrokerResponse;
-import org.pixelgaffer.turnierserver.groker.GrokerUpdate;
 
-import com.google.gson.reflect.TypeToken;
-
-public abstract class GrokerAi extends Ai<GrokerGameState, GrokerUpdate> {
-	
-	private GrokerGameState gameState = new GrokerGameState();
-	
+public abstract class GrokerAi extends Ai {
+		
 	public GrokerAi(String[] args) {
-		super(new TypeToken<GrokerUpdate>() {
-		}, args);
+		super(args);
 	}
 	
 	@Override
-	protected Object update(GrokerGameState state) {
-		GrokerResponse response = new GrokerResponse();
-		response.chips = einsatz(new AiDaten(state, 0), new AiDaten(state, 1));
-		response.output = output.toString();
-		clear(output);
-		return response;
+	protected String update(String answer) {
+		StringBuilder response = new StringBuilder();
+		String[] split = answer.split(";");
+		response.append(einsatz(new AiDaten(split[0]), new AiDaten(split[1])));
+		response.append(':');
+		response.append(getOutput());
+		return response.toString();
 	}
 	
 	public abstract int einsatz(AiDaten du, AiDaten gegner);
-	
-	@Override
-	protected GrokerGameState getState(GrokerUpdate change) {
-		gameState.applyChanges(change);
-		return gameState;
-	}
 	
 }

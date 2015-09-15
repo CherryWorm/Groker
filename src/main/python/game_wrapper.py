@@ -6,7 +6,7 @@ class GameWrapper(AIWrapper):
 		return str(self.ai.einsatz()) + ":"
 
 	def process(self, d):
-		own, their = d.split(";")
+		own, enemy = d.split(";")
 		ownWon, ownChips = own.split(":")
 		enemyWon, enemyChips = enemy.split(":")
 		if hasattr(self.ai, "process"):

@@ -30,7 +30,7 @@ public class AiDaten {
 	}
 	
 	AiDaten(String[] s) {
-		this(Integer.getInteger(s[0]), Integer.getInteger(s[1]));
+		this(Integer.parseInt(s[0]), Integer.parseInt(s[1]));
 	}
 	
 	public int letzterEinsatz, gewonneneChips;

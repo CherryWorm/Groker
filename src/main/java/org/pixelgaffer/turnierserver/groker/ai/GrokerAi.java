@@ -28,12 +28,8 @@ public abstract class GrokerAi extends Ai {
 	
 	@Override
 	protected String update(String answer) {
-		StringBuilder response = new StringBuilder();
 		String[] split = answer.split(";");
-		response.append(einsatz(new AiDaten(split[0]), new AiDaten(split[1])));
-		response.append(':');
-		response.append(getOutput());
-		return response.toString();
+		return Integer.toString(einsatz(new AiDaten(split[0]), new AiDaten(split[1])));
 	}
 	
 	public abstract int einsatz(AiDaten du, AiDaten gegner);

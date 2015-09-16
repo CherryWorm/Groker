@@ -24,9 +24,9 @@ public class GrokerResponse {
 	public String output;
 
 	public GrokerResponse(String s) {
-		String[] split = s.split(":");
-		chips = Integer.getInteger(split[0]);
-		output = split[1].replace("\\n", "\n").replace("\\\\n", "\\n");
+		int split = s.indexOf(':');
+		chips = Integer.parseInt(s.substring(0, split));
+		output = s.substring(split + 1).replace("\\\\", "\\").replace("\\n", "\n");
 	}
 	
 }

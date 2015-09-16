@@ -93,6 +93,7 @@ public class GrokerLogic extends TurnBasedGameLogic<GrokerAiObject, GrokerRespon
 		try {
 			return new GrokerResponse(string);
 		} catch(Exception e) {
+			e.printStackTrace();
 			throw new ParseException(string, -1);
 		}
 	}

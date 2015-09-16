@@ -38,3 +38,7 @@ python {
 	SOURCES = src/main/python
 	FILES = game_wrapper.py
 }
+
+go {
+	SOURCES = src/main/go
+}

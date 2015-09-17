@@ -17,6 +17,7 @@ import (
 	"io/ioutil"
 	"net"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -35,12 +36,10 @@ func openProperties() map[string]string {
 	check(err)
 	lines := strings.Split(string(dat), "\n")
 	for _, line := range lines {
-		fmt.Println(line)
 		if strings.HasPrefix(line, "#") || len(line) < 3 {
 			continue
 		}
 		kv := strings.SplitN(line, "=", 2)
-		fmt.Println(kv)
 		m[kv[0]] = kv[1]
 		fmt.Println(kv[0] + " = " + kv[1])
 	}
@@ -90,14 +89,19 @@ func main() {
 			os.Exit(1)
 		}
 
+		output := "!processData"
 		if processData {
 			// FIXME: was mit den Daten anfangen
+			output := "FIXME: Output auslesen und so"
+			output = strings.Replace(output, "\\", "\\\\", -1)
+			output = strings.Replace(output, "\n", "\\n", -1)
 		}
 
-		e := ai.Einsatz()
+		e := strconv.Itoa(ai.Einsatz()) + ":" + output + "\n"
 
-		fmt.Println("schreibe", fmt.Sprintf("%v:", e))
-		_, err = fmt.Fprintf(conn, "%v:", e)
+		fmt.Println("schreibe", e)
+		written, err := conn.Write([]byte(e))
 		check(err)
+		fmt.Println("wrote", written, "bytes")
 	}
 }

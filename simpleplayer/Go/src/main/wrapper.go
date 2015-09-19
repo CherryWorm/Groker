@@ -21,9 +21,6 @@ import (
 	"strings"
 )
 
-const redirectOutput = false
-const processData = false
-
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -46,31 +43,33 @@ func openProperties() map[string]string {
 	return m
 }
 
+func redirectOutput() (*os.File, *os.File, chan string, *os.File) {
+	fmt.Println("redirecting stdout...")
+	stdoutOld := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	outC := make(chan string)
+	go func() {
+		var buf bytes.Buffer
+		io.Copy(&buf, r)
+		outC <- buf.String()
+	}()
+
+	return r, w, outC, stdoutOld
+}
+
+func restoreOutput(r, w *os.File, outC chan string, stdoutOld *os.File) string {
+
+	w.Close()
+	os.Stdout = stdoutOld
+	out := <-outC
+	fmt.Println("Output restored:", out)
+	return out
+}
+
 func main() {
 	props := openProperties()
-
-	if redirectOutput {
-		fmt.Println("redirecting stdout...")
-		stdoutOld := os.Stdout
-		r, w, _ := os.Pipe()
-		os.Stdout = w
-
-		outC := make(chan string)
-		go func() {
-			var buf bytes.Buffer
-			io.Copy(&buf, r)
-			outC <- buf.String()
-		}()
-
-		// do Stuff
-
-		fmt.Println("restoreing stdout...")
-		w.Close()
-		os.Stdout = stdoutOld
-		out := <-outC
-		fmt.Println("output:", out)
-
-	}
 
 	conn, err := net.Dial("tcp", props["turnierserver.worker.host"]+":"+props["turnierserver.worker.server.port"])
 	check(err)
@@ -79,7 +78,16 @@ func main() {
 
 	fmt.Fprintln(conn, props["turnierserver.worker.server.aichar"]+props["turnierserver.ai.uuid"])
 
-	ai.Init()
+	var output string
+
+	if ai.RedirectOutput {
+		r, w, outC, stdoutOld := redirectOutput()
+		ai.Init()
+		output += restoreOutput(r, w, outC, stdoutOld)
+	} else {
+		ai.Init()
+	}
+
 	for {
 		fmt.Println("warte auf Daten...")
 		str, err := reader.ReadString('\n')
@@ -89,18 +97,43 @@ func main() {
 			os.Exit(1)
 		}
 
-		output := "!processData"
-		if processData {
-			// FIXME: was mit den Daten anfangen
-			output := "FIXME: Output auslesen und so"
-			output = strings.Replace(output, "\\", "\\\\", -1)
-			output = strings.Replace(output, "\n", "\\n", -1)
+		if ai.ProcessData {
+			// TODO: strings.TrimRight, strings.Split performance
+			split := strings.Split(strings.TrimRight(str, "\n"), ";")
+			ownWonChips, err := strconv.Atoi(strings.Split(split[0], ":")[0])
+			check(err)
+			ownChips, err := strconv.Atoi(strings.Split(split[0], ":")[1])
+			check(err)
+			enemyWonChips, err := strconv.Atoi(strings.Split(split[1], ":")[0])
+			check(err)
+			enemyChips, err := strconv.Atoi(strings.Split(split[1], ":")[1])
+			check(err)
+			if ai.RedirectOutput {
+				r, w, outC, stdoutOld := redirectOutput()
+				ai.Process(ownWonChips, enemyWonChips, ownChips, enemyChips)
+				output += restoreOutput(r, w, outC, stdoutOld)
+			} else {
+				ai.Process(ownWonChips, enemyWonChips, ownChips, enemyChips)
+			}
 		}
 
-		e := strconv.Itoa(ai.Einsatz()) + ":" + output + "\n"
+		var einsatz int
+		if ai.RedirectOutput {
+			r, w, outC, stdoutOld := redirectOutput()
+			einsatz = ai.Einsatz()
+			output += restoreOutput(r, w, outC, stdoutOld)
 
-		fmt.Println("schreibe", e)
-		written, err := conn.Write([]byte(e))
+			output = strings.Replace(output, "\\", "\\\\", -1)
+			output = strings.Replace(output, "\n", "\\n", -1)
+		} else {
+			einsatz = ai.Einsatz()
+		}
+
+		data := strconv.Itoa(einsatz) + ":" + output + "\n"
+		output = ""
+
+		fmt.Println("schreibe", data)
+		written, err := conn.Write([]byte(data))
 		check(err)
 		fmt.Println("wrote", written, "bytes")
 	}

@@ -21,18 +21,24 @@ package org.pixelgaffer.turnierserver.groker;
 import org.pixelgaffer.turnierserver.groker.ai.*;
 
 public class SimplePlayer extends GrokerAi {
-	
+
+	//Dies ist der Konstruktor. Bitte modifiziere diesen nicht!
 	public SimplePlayer(String[] args) {
 		super(args);
 	}
-	
+
+	//Dies hier ist für dich die wichtigste Methode. Gebe einfach zurück, wieviel du setzen willst.
+	//Die Klasse AiDaten enthält die Felder letzterEinsatz und gewonneneChips.
 	@Override
 	public int einsatz(AiDaten du, AiDaten gegner) {
 		return 5;
 	}
-	
+
+	//Dies hier ist die main-Methode. Du kannst sie so lassen wie sie ist und unser Networking-zeugs verwenden, du kannst deine KI aber auch
+	//komplett selbst schreiben. Hierbei kannst du Ai.java in unserem GitHub-Repository als Vorbild nehmen. Falls du Verbesserungsvprschläge hast,
+	//bitten wir dich, einen pull-request zu erstellen-
 	public static void main(String[] args) {
 		new SimplePlayer(args).start();
 	}
-	
+
 }

@@ -1,12 +1,7 @@
 package main
 
-/*
-Unfertiges Zeugs:
-[ ] Crashes
-[ ] properties_to_dict
-
-Um die Quali-KI zu verschnellern sind Features standartmäßig deaktiviert.
-*/
+// Um die Quali-KI zu verschnellern sind Features standartmäßig deaktiviert.
+// Diese Features können im 'ai'-Paket aktiviert werden.
 
 import (
 	"ai"
@@ -68,11 +63,21 @@ func restoreOutput(r, w *os.File, outC chan string, stdoutOld *os.File) string {
 	return out
 }
 
+func recoverSend(conn net.Conn) {
+	if r := recover(); r != nil {
+		fmt.Println("Recovering", r)
+		data := "CRASH " + fmt.Sprintf("%v", r)
+		fmt.Println("sending", data)
+		conn.Write([]byte(data))
+	}
+}
+
 func main() {
 	props := openProperties()
 
 	conn, err := net.Dial("tcp", props["turnierserver.worker.host"]+":"+props["turnierserver.worker.server.port"])
 	check(err)
+	defer recoverSend(conn)
 
 	reader := bufio.NewReader(conn)
 

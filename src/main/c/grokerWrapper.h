@@ -3,6 +3,8 @@
 
 #include "wrapper.h"
 
+#include <stdlib.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -107,7 +109,7 @@ private:
 	int main (int argc, char **argv) \
 	{ \
 		Wrapper *w = globalInit(argc, argv); \
-		grokerMainLoop(w, callback ); \
+		grokerMainLoop(w, __callback); \
 		globalCleanup(&w); \
 		return 0; \
 	}

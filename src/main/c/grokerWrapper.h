@@ -17,7 +17,14 @@ typedef struct _player Spieler; // für die die lieber deutsch proggen
 
 Player* parsePlayer (char *s);
 
-#define GROKER_CALLBACK(name) int (* name ) (Player*, Player*)
+struct _result
+{
+	int chips;
+	const char *output;
+};
+typedef struct _result Result;
+
+#define GROKER_CALLBACK(name) Result* (* name ) (Player*, Player*)
 
 char* grokerMainLoop (Wrapper *w, GROKER_CALLBACK(callback));
 
@@ -26,6 +33,8 @@ char* grokerMainLoop (Wrapper *w, GROKER_CALLBACK(callback));
 #endif
 
 #ifdef __cplusplus
+
+#include <sstream>
 
 extern "C"
 {
@@ -45,20 +54,33 @@ public:
 	
 	virtual int calc (Player *me, Player *enemy) = 0;
 	
+	const char* readOutput ()
+	{
+		const char *outbuf = _out.str().data();
+		_out = std::stringstream();
+		return outbuf;
+	}
+	
 protected:
 	void crash (const char *reason) { __c_crash(w, reason); }
 	void surrender () { __c_surrender(w); }
 	
+	std::stringstream& out () { return _out; }
+	
 private:
 	Wrapper *w;
+	std::stringstream _out;
 };
 
 #define GROKER_MAIN(clazzname) \
 	clazzname *__ai = 0; \
 	\
-	int __callback (Player *me, Player *enemy) \
+	Result* __callback (Player *me, Player *enemy) \
 	{ \
-		return __ai->calc(me, enemy); \
+		Result *r = (Result*) malloc(sizeof(Result)); \
+		r->chips = __ai->calc(me, enemy); \
+		r->output = __ai->readOutput(); \
+		return r; \
 	} \
 	\
 	int main (int argc, char **argv) \
@@ -74,6 +96,14 @@ private:
 #else
 
 #define GROKER_MAIN(callback) \
+	Result* __callback (Player *me, Player *enemy) \
+	{ \
+		Result *r = malloc(sizeof(Result)); \
+		r->chips = callback(me, enemy); \
+		r->output = "-- not implemented --"; \
+		return r; \
+	} \
+	\
 	int main (int argc, char **argv) \
 	{ \
 		Wrapper *w = globalInit(argc, argv); \

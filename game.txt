@@ -39,6 +39,7 @@ python {
 
 go {
 	SOURCES = src/main/go
+	FILES = wrapper.go
 }
 
 c {

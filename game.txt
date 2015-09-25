@@ -11,11 +11,11 @@ logic {
 	LIBS += lib/java/utils.jar
 		
 	SOURCES = src/main/java
-	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
-	FILES += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
-	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
-	FILES += org/pixelgaffer/turnierserver/groker/logic/GrokerAiObject.java
-	FILES += org/pixelgaffer/turnierserver/groker/logic/GrokerLogic.java
+	FILES   = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
+	FILES  += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
+	FILES  += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
+	FILES  += org/pixelgaffer/turnierserver/groker/logic/GrokerAiObject.java
+	FILES  += org/pixelgaffer/turnierserver/groker/logic/GrokerLogic.java
 	LOGICCLASS = org.pixelgaffer.turnierserver.groker.logic.GrokerLogic
 }
 
@@ -25,18 +25,29 @@ java {
 	LIBS += lib/java/utils.jar
 
 	SOURCES = src/main/java
-	FILES  = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
-	FILES += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
-	FILES += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
-	FILES += org/pixelgaffer/turnierserver/groker/ai/GrokerAi.java
-	FILES += org/pixelgaffer/turnierserver/groker/ai/AiDaten.java
+	FILES   = org/pixelgaffer/turnierserver/groker/GrokerGameState.java
+	FILES  += org/pixelgaffer/turnierserver/groker/GrokerUpdate.java
+	FILES  += org/pixelgaffer/turnierserver/groker/GrokerResponse.java
+	FILES  += org/pixelgaffer/turnierserver/groker/ai/GrokerAi.java
+	FILES  += org/pixelgaffer/turnierserver/groker/ai/AiDaten.java
 }
 
 python {
 	SOURCES = src/main/python
-	FILES = game_wrapper.py
+	FILES   = game_wrapper.py
 }
 
 go {
 	SOURCES = src/main/go
+}
+
+c {
+	LIBS        += lib/c/ailib/libailib.so
+	INCLUDEPATH  = lib/c/ailib
+	HEADERS      = lib/c/ailib/properties.h
+	HEADERS     += lib/c/ailib/wrapper.h
+	
+	SOURCES  = src/main/c
+	FILES    = grokerWrapper.c
+	HEADERS += src/main/c/grokerWrapper.h
 }

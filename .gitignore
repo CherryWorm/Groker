@@ -24,6 +24,7 @@ buildgame
 
 # vim
 *.swp
+*.kate-swp
 
 # zeugs das generiert wird
 simpleplayer/*.zip

@@ -1,5 +1,5 @@
 /*
- * wrapper.h
+ * output.h
  *
  * Copyright (C) 2015 Pixelgaffer
  *
@@ -16,36 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef WRAPPER_H
-#define WRAPPER_H
+#ifndef OUTPUT_H
+#define OUTPUT_H
 
-#include "properties.h"
+char* itos (int i);
+char* dtos (double d);
 
-#ifndef MAX_BUFFSIZE
-#  define MAX_BUFFSIZE 10485760 /* 10 Mib */
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-struct _wrapper
+struct _output_buffer
 {
-	Properties *p;
-	int socketfd;
+	char *buf;
 };
-typedef struct _wrapper Wrapper;
+typedef struct _output_buffer OutputBuffer;
 
-char* readLine (Wrapper *w);
+#define OB_KEEP_STR 0
+#define OB_CLEAR_STR 1
+#define OB_RETURN_REF 0
+#define OB_RETURN_COPY 2
 
-Wrapper *globalInit (int argc, char **argv);
-void globalCleanup (Wrapper **w);
+OutputBuffer* createBuffer ();
+char* readBuffer (OutputBuffer *buf, unsigned char mode);
+void destroyBuffer (OutputBuffer *buf);
 
-void surrender (Wrapper *w);
-void crash (Wrapper *w, const char *reason);
-
-#ifdef __cplusplus
-}
-#endif
+OutputBuffer* appendi (OutputBuffer *buf, int i);
+OutputBuffer* appendd (OutputBuffer *buf, double d);
+OutputBuffer* append (OutputBuffer *buf, char *str);
 
 #endif

@@ -41,7 +41,7 @@
  *  - org.pixelgaffer.turnierserver.groker.ai.GrokerAi
  * 
  * Um eine KI in Java zu schreiben, muss die Klasse org.pixelgaffer.turnierserver.groker.ai.GrokerAi erweitert
- * werden und in der main-Methode muss eine neue Instanz davon mit den Argumenten der main-Methode erstellt werden.
+ * werden und in der main-Methode muss eine neue Instanz davon mit den Argumenten der main-Methode erstellt und die start()-Methode aufgerufen werden.
  * 
  * Python
  * ---

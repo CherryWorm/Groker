@@ -16,12 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ * Dies ist die Mutterklasse aller Groker KIs.
+ * 
+ * Jede KI muss diese Klasse erweitern. Nach der Instantiierung muss die start() methode aufgerufen werden, damit die KI anfängt, auf Nachrichten von der Spiellogik zu hören.
+ * 
+ * Rufe surrender() auf um ihne Grund aufzugeben
+ * Rufe crash(Throwable t) oder crash(String reason) auf, um zu signalisieren, dass es einen crash gab. Dies hat den gleichen Effekt wie surrender(), nur dass du die Fehlermeldung auf der Webseite ausgegeben bekommst.
+ */
 package org.pixelgaffer.turnierserver.groker.ai;
 
 import org.pixelgaffer.turnierserver.ailibrary.Ai;
 
 public abstract class GrokerAi extends Ai {
-		
+	
+	/**
+	 * Dies instantiiert die KI. Vergiss nicht start() aufzurufen!
+	 * 
+	 * @param args Die in main(String[] args) übergebenen Kommandzeilenargumente
+	 */
 	public GrokerAi(String[] args) {
 		super(args);
 	}

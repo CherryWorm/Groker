@@ -33,5 +33,12 @@ public class AiDaten {
 		this(Integer.parseInt(s[0]), Integer.parseInt(s[1]));
 	}
 	
-	public int letzterEinsatz, gewonneneChips;
+	/**
+	 * Der Einsatz in der letzten Runde
+	 */
+	public int letzterEinsatz;
+	/**
+	 * Die gesamte Anzahl an gewonenen Chips dieser KI
+	 */
+	public int gewonneneChips;
 }

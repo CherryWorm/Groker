@@ -32,6 +32,13 @@ public abstract class GrokerAi extends Ai {
 		return Integer.toString(einsatz(new AiDaten(split[0]), new AiDaten(split[1])));
 	}
 	
+	/**
+	 * Diese Methode soll den Einsatz dieser KI zurückgeben
+	 * 
+	 * @param du Die AiDaten dieser KI der letzten Runde
+	 * @param gegner Die AiDaten der Gegner-Ki der letzten Runde
+	 * @return Eine Zahl >= 1, der Einsatz dieser KI für diese Runde
+	 */
 	public abstract int einsatz(AiDaten du, AiDaten gegner);
 	
 }

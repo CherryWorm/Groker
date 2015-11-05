@@ -28,3 +28,6 @@ buildgame
 
 # zeugs das generiert wird
 simpleplayer/*.zip
+
+doc/html
+doc/latex

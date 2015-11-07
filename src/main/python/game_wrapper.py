@@ -3,7 +3,7 @@ from wrapper import AIWrapper
 class GameWrapper(AIWrapper):
 	def update(self, updates):
 		self.process(updates)
-		return str(self.ai.einsatz()) + ":"
+		return str(self.ai.einsatz())
 
 	def process(self, d):
 		own, enemy = d.split(";")
@@ -18,6 +18,3 @@ class GameWrapper(AIWrapper):
 			)
 		else:
 			print("KI verarbeitet Daten aufgrund fehlender 'process' Methode nicht.")
-
-	def add_output(self, d, o):
-		d += ":" + o

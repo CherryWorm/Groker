@@ -11,10 +11,10 @@ class GameWrapper(AIWrapper):
 		enemyWon, enemyChips = enemy.split(":")
 		if hasattr(self.ai, "process"):
 			self.ai.process(
-				ownWonChips=ownWon,
-				ownChips=ownChips,
-				enemyWonChips=enemyWon,
-				enemyChips=enemyChips
+				ownWonChips=int(ownWon),
+				ownChips=int(ownChips),
+				enemyWonChips=int(enemyWon),
+				enemyChips=int(enemyChips)
 			)
 		else:
 			print("KI verarbeitet Daten aufgrund fehlender 'process' Methode nicht.")

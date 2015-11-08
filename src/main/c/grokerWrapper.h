@@ -111,7 +111,7 @@ public:
 	const char* readOutput ()
 	{
 		const char *outbuf = _out.str().data();
-		_out = std::stringstream();
+		_out.str("");
 		return outbuf;
 	}
 	

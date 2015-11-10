@@ -1,2 +1,11 @@
-# enable/disable the generation of debugging symbols
+# Diese Datei enthält Informationen wie deine KI kompiliert wird.
+
+# Der C und C++ Standart. Aktuell wird nur gcc unterstützt.
+standart.c.version=99
+standart.c.gnu=false
+standart.cpp.version=11
+standart.cpp.gnu=false
+
+# Wenn debug=true werden Debugging-Symbole gebaut (-g), ansonsten wird
+# der Code optimiert (-O2)
 debug=false

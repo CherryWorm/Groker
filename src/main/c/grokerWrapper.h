@@ -73,12 +73,6 @@ char* grokerMainLoop (Wrapper *w, GROKER_CALLBACK(callback));
 
 #include <sstream>
 
-extern "C"
-{
-	void __c_crash (Wrapper *w, const char *reason) { crash(w, reason); }
-	void __c_surrender (Wrapper *w) { surrender(w); }
-}
-
 /**
  * Dies ist die Mutter-Klasse von jeder Groker-KI. Sie muss im Konstuktor genau ein Argument, `Wrapper*`,
  * entgegennehmen, und an diese Klasse weitergeben. Zudem muss die pure virtual Methode `calc` überschrieben
